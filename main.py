@@ -18,30 +18,35 @@ class boarder:
         self.square_size = square_size
         self.color = color
         self.second_color = WHITE
+        self.line_color = RED
         self.grid_list = []
 
+# This is just to act a guide, no other funciton
+    def line_guide(self):
+        for line in range(0,self.screen_height,self.square_size):
+            pygame.draw.line(self.screen,self.line_color,(line,0),(line,self.screen_height))
+            pygame.draw.line(self.screen,self.line_color, (0,line),(self.screen_height,line))
 
-#currently this grid method only ranges the left column
+
+
+#defines the grid out Rects using double for loop
     def grid(self):
         for row in range(0,self.screen_height,self.square_size):
-            rect = pygame.Rect(0,row,self.square_size,self.square_size)
-            self.grid_list.append(rect)
+            for column in range(0,self.screen_height,self.square_size):
+                rect = pygame.Rect(row,column,self.square_size,self.square_size)
+                self.grid_list.append(rect)
 
 
 
 
-# just checking this works dont user this draw method
+
+
+# draws the Rect list to screen
     def draw_grid(self):
-        counter = 0
         for square_to_draw in self.grid_list:
-            if counter > 14:
-                return
-            elif counter % 2 == 0:
-                pygame.draw.rect(self.screen,self.color,(square_to_draw))
-                counter += 1
-            else:
                 pygame.draw.rect(self.screen, self.second_color, (square_to_draw))
-                counter += 1
+
+
 
 
 
@@ -84,9 +89,10 @@ try:
 
 
         test.grid()
+
         test.draw_grid()
 
-
+        test.line_guide()
         pygame.display.update()
     #QUITS the game
     pygame.quit()
