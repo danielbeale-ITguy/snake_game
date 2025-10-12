@@ -1,5 +1,5 @@
 import pygame
-
+import random
 
 #Colours 
 WHITE = (255,255,255)
@@ -8,6 +8,7 @@ RED = (255,0,0)
 LILY = (250,225,255)
 GREEN = (0,255,0)
 LIGHT_RED = (255,189,189)
+BLUE = (0,0,255)
 
 
 #Boarder
@@ -84,20 +85,40 @@ class snake:
         self.square_size = square_size
         self.screen = screen
         self.snake_head = pygame.Rect(self.snake_x, self.snake_y,self.square_size, self.square_size)
-        self.speed = 3
+        self.speed = 2
         self.dx = 1
         self.snake_body = []
-        self.old_head = ()
-    def draw_snake_head(self):
-        snake_body = pygame.Rect(self.snake_head)
+        self.extend = False
+
+    def draw_head(self):
         pygame.draw.rect(self.screen,RED,(self.snake_head))
-        self.snake_body.append((snake_body))
-        
-    def draw_snake_body(self):
+
         for body in self.snake_body:
-            pygame.draw.rect(self.screen,GREEN,(body))
-            self.snake_body.pop()
-       
+            pygame.draw.rect(self.screen,RED,(body))
+
+
+    def update_snake_body(self):
+        
+        self.snake_body.insert(0,self.snake_head.copy())
+        self.snake_body.pop()
+        if self.extend == True:
+            self.snake_body.insert(0,self.snake_head.copy())
+            self.extend = False
+
+
+    def collison(self):
+        self.extend = True
+
+            
+
+
+            
+
+
+
+
+        
+
     def move_right(self):
         self.snake_head.x += self.speed 
     def move_left(self):
@@ -109,3 +130,23 @@ class snake:
 
 
 
+
+
+class Fruit:
+    def __init__(self,screen,square_size):
+        self.screen = screen
+        self.square_size = square_size
+        self.f_x = 200
+        self.f_y = 200
+        self.current_pos = ()
+
+
+    def draw_fruit(self):
+        self.current_pos = pygame.Rect(self.f_x,self.f_y,self.square_size,self.square_size)
+        pygame.draw.rect(self.screen,BLUE,(self.current_pos))
+        
+    
+    def fruit_collison(self):
+        self.f_x = 500
+        self.f_y = 500
+        self.draw_fruit()

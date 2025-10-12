@@ -36,6 +36,13 @@ def main():
 
     game_run = boarder(screen,screen_height,square_size,WHITE,boarder_data)
     snake_ = snake(snake_x,snake_y,square_size,screen)
+    fruit = Fruit(screen,square_size)
+    
+
+
+
+    
+
     move = False
     game_run.grid()
     while running:
@@ -82,14 +89,33 @@ def main():
 
 
 
+        
+
+
         screen.fill(LILY)
+        fruit.draw_fruit()  
+
+        
+        snake_.draw_head()
+        snake_.update_snake_body()
+        
+        
+        if pygame.Rect.colliderect(snake_.snake_head,fruit.current_pos):
+            snake_.collison()
+            fruit.fruit_collison()
+        
+        
+        
+            
 
 
-        snake_.draw_snake_body()
-        snake_.draw_snake_head()
-        game_run.draw_grid()
 
 
+
+
+        
+        
+        
         pygame.display.update()
         dt = clock.tick(60)
         
