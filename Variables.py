@@ -85,10 +85,11 @@ class snake:
         self.square_size = square_size
         self.screen = screen
         self.snake_head = pygame.Rect(self.snake_x, self.snake_y,self.square_size, self.square_size)
-        self.speed = 2
-        self.dx = 1
+        self.speed = 1
+        self.dt = 60 / 1000
         self.snake_body = []
         self.extend = False
+        
 
     def draw_head(self):
         pygame.draw.rect(self.screen,RED,(self.snake_head))
@@ -98,35 +99,30 @@ class snake:
 
 
     def update_snake_body(self):
-        
         self.snake_body.insert(0,self.snake_head.copy())
         self.snake_body.pop()
         if self.extend == True:
-            self.snake_body.insert(0,self.snake_head.copy())
-            self.extend = False
+                for i in range(10):
+                    self.snake_body.insert(0,self.snake_head.copy())
+      
+                self.extend = False
 
 
     def collison(self):
         self.extend = True
+        self.speed += 0.01
 
             
-
-
-            
-
-
-
-
-        
 
     def move_right(self):
-        self.snake_head.x += self.speed 
+        self.snake_head.x += self.square_size * self.dt * self.speed
     def move_left(self):
-        self.snake_head.x -= self.speed
+        self.snake_head.x -= self.square_size * self.dt * self.speed
     def move_up(self):
-        self.snake_head.y -= self.speed
+        self.snake_head.y -= self.square_size * self.dt * self.speed
     def move_down(self):
-        self.snake_head.y += self.speed
+        self.snake_head.y += self.square_size * self.dt * self.speed
+
 
 
 
@@ -139,14 +135,16 @@ class Fruit:
         self.f_x = 200
         self.f_y = 200
         self.current_pos = ()
-
+        self.center = ()
 
     def draw_fruit(self):
         self.current_pos = pygame.Rect(self.f_x,self.f_y,self.square_size,self.square_size)
         pygame.draw.rect(self.screen,BLUE,(self.current_pos))
+        self.center = self.current_pos.center
+        
         
     
     def fruit_collison(self):
-        self.f_x = 500
-        self.f_y = 500
+        self.f_x = random.randint(55,645)
+        self.f_y = random.randint(55,645)
         self.draw_fruit()

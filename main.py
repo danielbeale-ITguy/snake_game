@@ -2,6 +2,7 @@ import pygame
 from Variables import *
 
 
+
 def main():
 
 
@@ -24,12 +25,12 @@ def main():
     direction = 0
 
 
-    square_size = 25
+    square_size = 30
     running = True
 
-    snake_x = 50
-    snake_y = 50
-
+    snake_x = 60
+    snake_y = 60
+    
 
 
 
@@ -101,10 +102,12 @@ def main():
         
         
         if pygame.Rect.colliderect(snake_.snake_head,fruit.current_pos):
-            snake_.collison()
             fruit.fruit_collison()
-        
-        
+            snake_.collison()
+
+#        if snake_.snake_head.collidepoint(fruit.center):
+#            fruit.fruit_collison()
+#            snake_.collison()
         
             
 
